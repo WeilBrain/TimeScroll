@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time</title>
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+			}
+			.time{
+				background-color: gray;
+				display: flex;
+				height: 100vh;
+				justify-content: center;
+				align-items: center;
+			}
+      .time__wrapper{
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+			.time__dot{
+        padding-top: 15px;
+        font-size: 24px;
+        color: white;
+			}
+		</style>
+</head>
+<body>
+	<section class="time ">
+        <label for="hours" class="time__wrapper">
+            Часы
+            <input value="0" class="time__input" id="hours" type="number">
+        </label>
+        <span class="time__dot">:</span>
+        <label for="minutes" class="time__wrapper">
+          Минуты
+          <input value="0" class="time__input" id="minutes" type="number">
+        </label>
+	</section>
+
+
+    <script>
+      document.getElementById('hours').addEventListener('wheel', handleWheelEvent)
+      document.getElementById('minutes').addEventListener('wheel', handleWheelEvent)
+      
+      function handleWheelEvent (event) {
+        const element = event.target;
+
+        let = currentValue = parseInt(element.value) // тут мы получаем значение и преобразуем его в число
+
+        const hours = document.getElementById('hours')
+        const minutes = document.getElementById('minutes')
+        
+        // проверяем направление прокрутик
+        if (event.deltaY < 0){
+          // прокрутка вверх
+          currentValue++
+        } else {
+          // прокрутка вниз
+          currentValue--
+        }
+
+        // Установим новое значение, с учётом min & max
+        if (element.id === 'hours'){
+          if (currentValue > 23) currentValue = 0;
+          if (currentValue < 0) currentValue = 23;
+        } else if (element.id === 'minutes') {
+          if (currentValue > 59) currentValue = 0
+          if (currentValue < 0) currentValue = 59
+        }
+
+        //обновляем значение
+        element.value = currentValue
+      }
+    
+    </script>
+</body>
+</html>
